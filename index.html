@@ -1,61 +1,272 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>About Me</h1>
-    <p>
-      I’m currently looking for opportunities in QA engineering, project management,
-      repo support, and other technical roles where I can contribute,
-      learn, and grow.
-      I’m a software engineer who took some time off to 
-      focus on my business, self improvement and relocation. 
-      During the off time I was studying 
-      cybersecurity, and discovering what is the new technology. I am now studying
-      Python, machine learning, and high tech solutions so I can 
-      keep growing and contribute with confidence.<br><br>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cindy Hsu | Resume</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent2: #0f766e;
+      --border: #e5e7eb;
+    }
 
-      Open to Contract, temp to hire, part or full time.
-    </p>
-    <h1>Resume</h1>
-    <p><a href="assets/Copy of Cindy H Resume.pdf" target="_blank">View My Resume</a></p>
-   <h1>LinkedIn</h1>
-    <p><a href="https://www.linkedin.com/in/cindy-hsu-80b20928/" target="_blank">Linked In Profile</a></p>
- 
+    * {
+      box-sizing: border-box;
+    }
 
-      
-    </p>
-    <h1>More GitHub Link</h1>
-    <p><a href="https://github.com/cindyhsugit/VSCode-Playground/tree/branch1.0" target="_blank">Sample Project</a></p>
-   
-    <h1>Work History</h1>
-    <p> StubHub - Senior iOS Developer </p>
-    <p> Udemy - Senior iOS Developer </p>
-    <p> Mercari - Senior iOS Developer </p>
-    <p> AppSense - iOS Developer </p>
-    <p> Phunware - iOS Developer </p>
-    <p> CurrenEx - QA Engineer </p>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, #f8fafc 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-     <h1>School History</h1>
-    <p> University of Southern California - Master of Science, Computer Science
-  <img src="images/usc-logo.png" alt="usc" style="width:50px; height:50px; object-fit:contain;"></p>
-    <br>
-    <p> Iowa State University - Bachelor of Science, Computer Science 
-      <img src="images/isu-logo.png" alt="isu" width="50"  height="50"> </p>
-    
-    <h1>Skill Level</h1>
-     <i>Current skill levels based on hands-on experience and ongoing learning <br></i>
-      
-     <p>
-      Python - 1/5 <br>
-      Swift - 3/5 <br>
-      Machine Learning — 1/5  <br>
-      Cybersecurity — 1/5  <br>      
-      QA Testing — 4/5  <br>
-      Project Management — 4/5  <br>
-    GitHub / Repo Support — 3/5
-    </p>
-    <h1>Voluntary demographic and veteran information</h1>
-    <p>US Citizen <br> Female <br> Not veteran <br> no disability </p>
-    <h1>Contact Info</h1>
-    <p>cindyhsu@protonmail.com</p>
-  </body>
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 2.2rem;
+      color: var(--accent);
+    }
+
+    .title {
+      margin: 8px 0 0;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: #fff;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    .sidebar, .main {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      color: var(--accent2);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 0.92rem;
+      border: 1px solid #e0e7ff;
+    }
+
+    .work-item, .school-item {
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .work-item:first-child, .school-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 0.95rem;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    ul.clean {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1 class="name">Cindy Hsu</h1>
+      <p class="title">Software Engineer | QA Engineer | Project Management | Learning Python & Machine Learning</p>
+      <div class="top-links">
+        <a class="btn" href="assets/Copy of Cindy H Resume.pdf" target="_blank">View Resume</a>
+        <a class="btn" href="https://www.linkedin.com/in/cindy-hsu-80b20928/" target="_blank">LinkedIn</a>
+        <a class="btn" href="https://github.com/cindyhsugit/VSCode-Playground/tree/branch1.0" target="_blank">Sample Project</a>
+        <a class="btn" href="mailto:cindyhsu@protonmail.com">Email Me</a>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="card">
+          <h2 class="section-title">About Me</h2>
+          <p class="small">
+            I’m currently looking for opportunities in QA engineering, project management,
+            repo support, and other technical roles where I can contribute, learn, and grow.
+          </p>
+          <p class="small">
+            I’m a software engineer who took some time off to focus on my business, self improvement,
+            and relocation. During that time, I studied cybersecurity and explored new technology.
+            I’m now studying Python, machine learning, and high-tech solutions so I can keep growing
+            and contribute with confidence.
+          </p>
+          <p class="small"><strong>Open to:</strong> Contract, temp-to-hire, part-time, or full-time.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Skills</h2>
+          <div class="pill-list">
+            <span class="pill">Python</span>
+            <span class="pill">Swift</span>
+            <span class="pill">Machine Learning</span>
+            <span class="pill">Cybersecurity</span>
+            <span class="pill">QA Testing</span>
+            <span class="pill">Project Management</span>
+            <span class="pill">GitHub Support</span>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Skill Level</h2>
+          <ul class="clean small">
+            <li>Python — 1/5</li>
+            <li>Swift — 3/5</li>
+            <li>Machine Learning — 1/5</li>
+            <li>Cybersecurity — 1/5</li>
+            <li>QA Testing — 4/5</li>
+            <li>Project Management — 4/5</li>
+            <li>GitHub / Repo Support — 3/5</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Contact</h2>
+          <p class="small">cindyhsu@protonmail.com</p>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="card">
+          <h2 class="section-title">Work History</h2>
+          <div class="work-item"><span class="label">StubHub</span> — Senior iOS Developer</div>
+          <div class="work-item"><span class="label">Udemy</span> — Senior iOS Developer</div>
+          <div class="work-item"><span class="label">Mercari</span> — Senior iOS Developer</div>
+          <div class="work-item"><span class="label">AppSense</span> — iOS Developer</div>
+          <div class="work-item"><span class="label">Phunware</span> — iOS Developer</div>
+          <div class="work-item"><span class="label">CurrenEx</span> — QA Engineer</div>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Education</h2>
+          <div class="school-item">
+            <span class="label">University of Southern California</span>
+            <span class="muted"> — Master of Science, Computer Science</span>
+            <img class="logo" src="images/usc-logo.png" alt="USC logo">
+          </div>
+          <div class="school-item">
+            <span class="label">Iowa State University</span>
+            <span class="muted"> — Bachelor of Science, Computer Science</span>
+            <img class="logo" src="images/isu-logo.png" alt="Iowa State logo">
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Volunteer / Demographic Info</h2>
+          <p class="small">US Citizen<br>Female<br>Not veteran<br>No disability</p>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
 </html>
