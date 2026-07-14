@@ -194,6 +194,12 @@
     }
     .status-line::before { content: "● "; }
 
+    .status-line.newest {
+      color: #b45309;
+      background: #fef3e2;
+      border-color: #f2d9b0;
+    }
+
     .project-body h3 { margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--ink); }
     .project-body p { margin: 0 0 14px; color: #47433d; }
 
@@ -232,11 +238,10 @@
           <p class="intro">
             Formerly a senior iOS engineer at StubHub, Mercari, and Udemy &mdash; now building and shipping
             AI-powered backend applications. My latest project is a containerized FastAPI chatbot with a
-            full retrieval-augmented generation pipeline &mdash; ChromaDB, HuggingFace embeddings and
-            cross-encoder reranking, and multi-provider LLM support (OpenAI and Gemini) &mdash; deployed live
-            on Render and Google Cloud Run.  with automatic failover, and a Corrective RAG fallback that pulls in
-            live web search when local knowledge falls short
-            I bring production engineering habits
+            full Corrective RAG (CRAG) pipeline &mdash; ChromaDB, HuggingFace embeddings and
+            cross-encoder reranking, multi-provider LLM support (OpenAI and Gemini) with automatic
+            failover, and a web-search fallback (Tavily) that kicks in when local knowledge falls short &mdash;
+            deployed live on Render and Google Cloud Run. I bring production engineering habits
             (Git, testing, API design) to a new stack.
           </p>
         </div>
@@ -313,6 +318,42 @@
         <section class="card">
           <span class="eyebrow">projects --featured</span>
           <h2 class="section-title">Featured Project</h2>
+
+          <!-- NEWEST: Corrective RAG (CRAG) version -->
+          <div class="project featured project-card">
+            <img class="project-thumb" src="assets/ai-chatbot-fastapi-with-rag-feature-chromadb-migration-render.png" alt="Screenshot of the Corrective RAG chatbot deployed on Render">
+            <div class="project-body">
+              <span class="status-line newest">latest &middot; corrective rag</span>
+              <h3>AI Chatbot with Corrective RAG (CRAG) &mdash; Multi-Provider Failover + Web Search Fallback</h3>
+              <p>
+                The latest iteration of my RAG chatbot, built from primitives &mdash; no LangChain. Adds a
+                Corrective RAG (CRAG) grading step that evaluates retrieval quality and falls back to
+                live web search (Tavily) when local knowledge is insufficient. Multi-provider LLM
+                support with automatic failover (OpenAI primary, Gemini backup) &mdash; swapping provider
+                priority order cut response latency significantly. Refactored into a modular codebase
+                with a centralized prompt-rules module for maintainability.
+              </p>
+              <div class="project-meta">
+                <span class="pill">Python</span>
+                <span class="pill">FastAPI</span>
+                <span class="pill">ChromaDB</span>
+                <span class="pill">HuggingFace</span>
+                <span class="pill">OpenAI API</span>
+                <span class="pill">Gemini API</span>
+                <span class="pill">Tavily</span>
+                <span class="pill">Docker</span>
+                <span class="pill">Render</span>
+                <span class="pill">Git</span>
+              </div>
+              <div class="project-links">
+                <a class="btn primary" href="PASTE_NEW_RENDER_URL_HERE" target="_blank" rel="noopener noreferrer">Live Demo (Render - CRAG)</a>
+                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider-gap"></div>
+
           <div class="project featured project-card">
             <img class="project-thumb" src="assets/ragCloudRunDemo.png" alt="Screenshot of the RAG-powered AI chatbot">
             <div class="project-body">
