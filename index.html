@@ -203,6 +203,14 @@
     .project-body h3 { margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--ink); }
     .project-body p { margin: 0 0 14px; color: #47433d; }
 
+    .project-body ul.debug-stories {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      color: #47433d;
+    }
+    .project-body ul.debug-stories li { margin-bottom: 6px; }
+    .project-body ul.debug-stories strong { color: var(--ink); }
+
     .project-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
     .project-links { display: flex; flex-wrap: wrap; gap: 10px; }
     .project-links .btn { padding: 9px 14px; }
@@ -234,15 +242,16 @@
       <div class="hero-top">
         <div>
           <h1 class="name">Cindy Hsu</h1>
-          <p class="role">GenAI / LLM Application Engineer &mdash; Python · FastAPI · RAG</p>
+          <p class="role">GenAI / LLM Application Engineer &mdash; Python · FastAPI · RAG · LangGraph</p>
           <p class="intro">
-            Formerly a senior iOS engineer at StubHub, Mercari, and Udemy &mdash; now building and shipping
-            AI-powered backend applications. My latest project is a containerized FastAPI chatbot with a
-            full Corrective RAG (CRAG) pipeline &mdash; ChromaDB, HuggingFace embeddings and
-            cross-encoder reranking, multi-provider LLM support (OpenAI and Gemini) with automatic
-            failover, and a web-search fallback (Tavily) that kicks in when local knowledge falls short &mdash;
-            deployed live on Render and Google Cloud Run. I bring production engineering habits
-            (Git, testing, API design) to a new stack.
+            Formerly a senior iOS engineer at Silicon Valley tech companies (ticketing marketplace, online
+            education, e-commerce marketplace) &mdash; now building and shipping AI-powered backend
+            applications. My latest project is a containerized FastAPI chatbot with a full Corrective RAG
+            (CRAG) pipeline &mdash; ChromaDB, HuggingFace embeddings and cross-encoder reranking,
+            multi-provider LLM support (OpenAI and Gemini) with automatic failover, a web-search fallback
+            (Tavily) that kicks in when local knowledge falls short, and LangGraph orchestration with
+            persistent multi-turn memory &mdash; deployed live on Render and Google Cloud Run. I bring
+            production engineering habits (Git, testing, API design) to a new stack.
           </p>
         </div>
       </div>
@@ -257,7 +266,7 @@
       <div class="actions">
         <a class="btn primary" href="assets/Cindy_Hsu_Resume_GenAI_Engineer.pdf" target="_blank">View Resume</a>
         <a class="btn" href="https://www.linkedin.com/in/cindy-hsu-80b20928/" target="_blank">LinkedIn</a>
-        <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi" target="_blank">GitHub</a>
+        <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank">GitHub</a>
         <a class="btn" href="mailto:cindyhsu@protonmail.com">Email Me</a>
       </div>
     </section>
@@ -268,10 +277,10 @@
           <span class="eyebrow">whoami</span>
           <h2 class="section-title">About Me</h2>
           <p class="small">
-            I spent years shipping production iOS apps at companies like StubHub and Mercari, then
-            took time to study Python, machine learning, and cloud fundamentals. Today I'm applying
-            that engineering discipline &mdash; clean APIs, version control, real debugging &mdash; to
-            building AI-powered applications from the ground up.
+            I spent years shipping production iOS apps at Silicon Valley tech companies, then took time
+            to study Python, machine learning, and cloud fundamentals. Today I'm applying that engineering
+            discipline &mdash; clean APIs, version control, real debugging &mdash; to building AI-powered
+            applications from the ground up.
           </p>
         </section>
 
@@ -281,6 +290,7 @@
           <div class="pill-list">
             <span class="pill">Python</span>
             <span class="pill">FastAPI</span>
+            <span class="pill">LangGraph</span>
             <span class="pill">RAG Pipeline Design</span>
             <span class="pill">ChromaDB</span>
             <span class="pill">HuggingFace</span>
@@ -319,19 +329,68 @@
           <span class="eyebrow">projects --featured</span>
           <h2 class="section-title">Featured Project</h2>
 
-          <!-- NEWEST: Corrective RAG (CRAG) version -->
+          <!-- NEWEST: LangGraph orchestration version -->
+          <div class="project featured project-card">
+            <img class="project-thumb" src="assets/combined_demo_annotated.png" alt="Screenshot of the LangGraph-orchestrated RAG chatbot demonstrating grounding, memory, and web search fallback">
+            <div class="project-body">
+              <span class="status-line newest">latest &middot; langgraph orchestration</span>
+              <h3>AI Chatbot with RAG &mdash; LangGraph Edition</h3>
+              <p>
+                Migrated orchestration from hand-rolled control flow to LangGraph: the pipeline is now a
+                typed <code>StateGraph</code> with conditional routing between context-grounded,
+                trained-knowledge, and web-search generation paths, plus a <code>MemorySaver</code>
+                checkpointer that gives the system persistent multi-turn conversational memory across
+                separate API calls. Kept the original manual-RAG version live on Render as a deliberate
+                before/after architectural comparison.
+              </p>
+              <ul class="debug-stories">
+                <li><strong>Removed a dual history-tracking bug:</strong> found conversation history was
+                being tracked in two competing places at once (a hand-rolled store and the LangGraph
+                checkpointer); consolidated to a single source of truth before it caused duplicate messages.</li>
+                <li><strong>Fixed a cross-provider response mismatch:</strong> Gemini's response returning
+                structured content blocks where OpenAI returns a plain string was silently breaking the UI;
+                wrote a normalization layer so downstream code stays provider-agnostic.</li>
+                <li><strong>Root-caused an intermittent memory failure</strong> to LLM sampling variance at
+                a decision boundary &mdash; not a state bug &mdash; by systematically ruling out checkpointer,
+                thread-id, and prompt-template causes before confirming via repeated trials and fixing it
+                with temperature tuning.</li>
+              </ul>
+              <div class="project-meta">
+                <span class="pill">Python</span>
+                <span class="pill">FastAPI</span>
+                <span class="pill">LangGraph</span>
+                <span class="pill">LangChain</span>
+                <span class="pill">ChromaDB</span>
+                <span class="pill">HuggingFace</span>
+                <span class="pill">OpenAI API</span>
+                <span class="pill">Gemini API</span>
+                <span class="pill">Tavily</span>
+                <span class="pill">Docker</span>
+                <span class="pill">Google Cloud Run</span>
+              </div>
+              <div class="project-links">
+                <a class="btn primary" href="https://ai-chatbot-with-rag-1016078012439.us-west1.run.app" target="_blank" rel="noopener noreferrer">Live Demo (Cloud Run - LangGraph)</a>
+                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider-gap"></div>
+
+          <!-- Manual RAG (CRAG) version — kept for comparison -->
           <div class="project featured project-card">
             <img class="project-thumb" src="assets/rag_workflow_annotated.png" alt="Screenshot of the Corrective RAG chatbot deployed on Render">
             <div class="project-body">
-              <span class="status-line newest">latest &middot; corrective rag</span>
+              <span class="status-line">previous iteration &middot; manual rag</span>
               <h3>AI Chatbot with Corrective RAG (CRAG) &mdash; Multi-Provider Failover + Web Search Fallback</h3>
               <p>
-                The latest iteration of my RAG chatbot, built from primitives &mdash; no LangChain. Adds a
-                Corrective RAG (CRAG) grading step that evaluates retrieval quality and falls back to
-                live web search (Tavily) when local knowledge is insufficient. Multi-provider LLM
-                support with automatic failover (OpenAI primary, Gemini backup) &mdash; swapping provider
-                priority order cut response latency significantly. Refactored into a modular codebase
-                with a centralized prompt-rules module for maintainability.
+                The original RAG chatbot, built entirely from primitives &mdash; no LangChain &mdash;
+                specifically to understand retrieval, reranking, and failover internals before adopting a
+                framework. Adds a Corrective RAG (CRAG) grading step that evaluates retrieval quality and
+                falls back to live web search (Tavily) when local knowledge is insufficient. Multi-provider
+                LLM support with automatic failover (OpenAI primary, Gemini backup) &mdash; swapping provider
+                priority order cut response latency significantly. Kept live on Render as a before/after
+                comparison against the LangGraph version above.
               </p>
               <div class="project-meta">
                 <span class="pill">Python</span>
@@ -346,40 +405,7 @@
                 <span class="pill">Git</span>
               </div>
               <div class="project-links">
-                <a class="btn primary" href="https://ai-chatbot-fastapi-with-rag.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo (Render - CRAG)</a>
-                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="divider-gap"></div>
-
-          <div class="project featured project-card">
-            <img class="project-thumb" src="assets/ragCloudRunDemo.png" alt="Screenshot of the RAG-powered AI chatbot">
-            <div class="project-body">
-              <span class="status-line">retrieval verified</span>
-              <h3>AI Chatbot with RAG &mdash; FastAPI, ChromaDB, HuggingFace</h3>
-              <p>
-                A two-stage retrieval-augmented generation pipeline: documents are chunked, embedded
-                locally with a HuggingFace model, and stored in ChromaDB for persistent, metadata-filterable
-                vector search &mdash; then narrowed with a HuggingFace cross-encoder reranker before generation.
-                The generation layer supports both OpenAI and Gemini. Verified retrieval correctness with
-                adversarial testing &mdash; injecting a fabricated fact into the source document and confirming
-                the bot's answer came from retrieval, not pretraining &mdash; and confirmed the bot correctly
-                declines to answer when a question falls outside the document's scope.
-              </p>
-              <div class="project-meta">
-                <span class="pill">Python</span>
-                <span class="pill">FastAPI</span>
-                <span class="pill">ChromaDB</span>
-                <span class="pill">HuggingFace</span>
-                <span class="pill">OpenAI API</span>
-                <span class="pill">Gemini API</span>
-                <span class="pill">Docker</span>
-                <span class="pill">Git</span>
-              </div>
-              <div class="project-links">
-                <a class="btn primary" href="https://ai-chatbot-with-rag-1016078012439.us-west1.run.app" target="_blank" rel="noopener noreferrer">Live Demo (Cloud Run)</a>
+                <a class="btn primary" href="https://ai-chatbot-fastapi-with-rag.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo (Render - Manual RAG)</a>
                 <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
               </div>
             </div>
@@ -431,23 +457,23 @@
           <span class="eyebrow">history --work</span>
           <h2 class="section-title">Work History</h2>
           <div class="entry">
-            <div class="entry-title">StubHub &mdash; Senior iOS Developer</div>
+            <div class="entry-title">Silicon Valley Tech Co. (Ticketing Marketplace) &mdash; Senior iOS Developer</div>
             <div class="entry-sub">Production API integration and mobile architecture &mdash; directly applicable to backend service design today.</div>
           </div>
           <div class="entry">
-            <div class="entry-title">Udemy &mdash; Senior iOS Developer</div>
+            <div class="entry-title">Silicon Valley Tech Co. (Online Education) &mdash; Senior iOS Developer</div>
           </div>
           <div class="entry">
-            <div class="entry-title">Mercari &mdash; Senior iOS Developer</div>
+            <div class="entry-title">Silicon Valley Tech Co. (E-Commerce Marketplace) &mdash; Senior iOS Developer</div>
           </div>
           <div class="entry">
-            <div class="entry-title">AppSense &mdash; iOS Developer</div>
+            <div class="entry-title">Silicon Valley Tech Co. (Enterprise Software) &mdash; iOS Developer</div>
           </div>
           <div class="entry">
-            <div class="entry-title">Phunware &mdash; iOS Developer</div>
+            <div class="entry-title">Silicon Valley Tech Co. (Mobile Platform) &mdash; iOS Developer</div>
           </div>
           <div class="entry">
-            <div class="entry-title">CurrenEx &mdash; QA Engineer</div>
+            <div class="entry-title">Financial Services Tech Co. &mdash; QA Engineer</div>
           </div>
         </section>
 
