@@ -156,7 +156,7 @@
                     <span class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">Data Science Focus (Main Branch)</span>
                 </div>
                 <p class="text-slate-300 mb-6">
-                    Processed and merged a massive tabular dataset of <strong>653,000+ operational records</strong> across 11 months with hourly Anaheim weather data fetched via Open-Meteo API. Conducted extensive Exploratory Data Analysis (EDA) using <strong>pandas</strong>, <strong>Matplotlib</strong>, and <strong>Seaborn</strong> to uncover critical correlation patterns between weather, diurnal hourly escalations, and ride bottlenecks.
+                    Processed and merged a massive tabular dataset of <strong>653,200+ wait time records</strong> with <strong>8,328 hourly weather records (2024)</strong> fetched via Open-Meteo API. Conducted extensive Exploratory Data Analysis (EDA) using <strong>pandas</strong>, <strong>Matplotlib</strong>, and <strong>Seaborn</strong>, cleaning 314,136 zero-wait rows to isolate valid operational wait metrics.
                 </p>
 
                 <!-- Annotated Combined Analytics Dashboard Image -->
@@ -189,8 +189,14 @@
                     <span class="text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/30 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">Machine Learning Branch</span>
                 </div>
                 <p class="text-slate-300 mb-6">
-                    Engineered a robust scikit-learn machine learning classification pipeline featuring <strong>ColumnTransformer</strong> and <strong>StandardScaler</strong> to predict 60+ minute wait bottlenecks. Implemented rigorous cross-validation and feature isolation to guarantee <strong>zero data leakage</strong>, achieving <strong>93.5% model accuracy</strong> over the baseline.
+                    Engineered a robust <strong>scikit-learn</strong> machine learning classification pipeline trained on <strong>271,251 train samples</strong> and evaluated on <strong>67,813 test samples</strong>. Features <strong>ColumnTransformer</strong> and <strong>StandardScaler</strong> to predict 60+ minute wait bottlenecks with <strong>93.53% Accuracy</strong> and <strong>0.9337 ROC-AUC</strong> in just 0.78 seconds. Model artifact serialized successfully to <code class="text-purple-300">models/disney_wait_model.pkl</code>.
                 </p>
+
+                <!-- Annotated ML Dashboard Image -->
+                <div class="mb-6 overflow-hidden rounded-lg border border-slate-700 bg-slate-950 p-2 shadow-2xl">
+                    <img src="assets/disney-analysis-machine-learning.png" alt="Disneyland Machine Learning Confusion Matrix and Evaluation Metrics" class="w-full h-auto object-cover rounded hover:scale-[1.01] transition duration-300">
+                </div>
+
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs bg-slate-800 text-purple-300 border border-purple-500/20 px-3 py-1 rounded">Machine Learning</span>
                     <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">scikit-learn</span>
