@@ -1,508 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cindy Hsu | GenAI / LLM Application Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #eef1f7;
-      --card: #ffffff;
-      --ink: #1c2130;
-      --muted: #64748b;
-      --accent: #b45309;
-      --accent-soft: #fef3e2;
-      --line: #292524;
-      --border: #e3e7f0;
-      --mono-chip: #f1f0ec;
-      --mono-chip-text: #44403c;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 40px 20px 56px;
-    }
-
-    /* --- Signature: terminal-prompt eyebrows --- */
-    .eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      display: block;
-      margin-bottom: 8px;
-    }
-    .eyebrow::before { content: "$ "; opacity: 0.6; }
-
-    .hero {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 20px 50px rgba(28, 33, 48, 0.06);
-      margin-bottom: 24px;
-    }
-
-    .hero-top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-
-    .name {
-      margin: 0;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2.1rem, 4.2vw, 3.1rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-    }
-
-    .role {
-      margin: 10px 0 0;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .intro { margin-top: 16px; max-width: 780px; color: #3f3d38; }
-
-    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-
-    .badge {
-      font-family: 'JetBrains Mono', monospace;
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 6px;
-      background: var(--mono-chip);
-      color: var(--mono-chip-text);
-      border: 1px solid #ddd9d0;
-      font-size: 0.78rem;
-      font-weight: 500;
-    }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--ink);
-      font-weight: 600;
-      font-size: 0.92rem;
-      box-shadow: 0 4px 12px rgba(28, 33, 48, 0.04);
-      transition: 0.15s ease;
-    }
-
-    .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .btn:hover { transform: translateY(-1px); text-decoration: none; box-shadow: 0 8px 18px rgba(28, 33, 48, 0.1); }
-
-    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
-    .stack { display: grid; gap: 20px; }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 26px;
-      box-shadow: 0 10px 28px rgba(28, 33, 48, 0.05);
-    }
-
-    .section-title {
-      margin: 0 0 16px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .small { font-size: 0.95rem; }
-    .muted { color: var(--muted); }
-
-    .pill-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      font-family: 'JetBrains Mono', monospace;
-      padding: 6px 11px;
-      border-radius: 8px;
-      background: var(--mono-chip);
-      color: var(--mono-chip-text);
-      font-size: 0.82rem;
-      border: 1px solid #ddd9d0;
-    }
-    .pill.learning { background: var(--accent-soft); color: var(--accent); border-color: #f2d9b0; }
-
-    .entry { padding: 14px 0; border-top: 1px solid var(--border); }
-    .entry:first-child { border-top: none; padding-top: 0; }
-    .entry-title { font-weight: 700; color: var(--ink); }
-    .entry-sub { color: var(--muted); margin-top: 4px; font-size: 0.9rem; }
-
-    .list { margin: 0; padding-left: 18px; }
-    .contact-lines p { margin: 0 0 10px; }
-
-    .project {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      background: #fbfbfa;
-    }
-
-    .project.featured { border: 1.5px solid var(--ink); background: #fff; }
-
-    .project-card { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: start; }
-
-    .project-thumb {
-      width: 100%;
-      max-width: 320px;
-      height: auto;
-      display: block;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #f8fafc;
-    }
-
-    .status-line {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: #16794f;
-      background: #eafaf1;
-      border: 1px solid #c8ecd9;
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-    .status-line::before { content: "● "; }
-
-    .status-line.newest {
-      color: #b45309;
-      background: #fef3e2;
-      border-color: #f2d9b0;
-    }
-
-    .project-body h3 { margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--ink); }
-    .project-body p { margin: 0 0 14px; color: #47433d; }
-
-    .project-body ul.debug-stories {
-      margin: 0 0 14px;
-      padding-left: 18px;
-      color: #47433d;
-    }
-    .project-body ul.debug-stories li { margin-bottom: 6px; }
-    .project-body ul.debug-stories strong { color: var(--ink); }
-
-    .project-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .project-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .project-links .btn { padding: 9px 14px; }
-
-    .divider-gap { height: 4px; }
-
-    .logo { width: 40px; height: 40px; object-fit: contain; vertical-align: middle; margin-left: 8px; }
-
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .hero { padding: 28px; }
-    }
-
-    @media (max-width: 700px) {
-      .project-card { grid-template-columns: 1fr; }
-      .project-thumb { height: 220px; }
-    }
-
-    @media (max-width: 560px) {
-      .container { padding: 20px 14px 36px; }
-      .hero, .card { border-radius: 16px; }
-      .name { font-size: 2rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cindy Hsu | GenAI & LLM Application Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        accent: '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-  <div class="container">
-    <section class="hero">
-      <div class="hero-top">
-        <div>
-          <h1 class="name">Cindy Hsu</h1>
-          <p class="role">GenAI / LLM Application Engineer &mdash; Python · FastAPI · RAG · LangGraph</p>
-          <p class="intro">
-            Formerly a senior iOS engineer at Silicon Valley tech companies (ticketing marketplace, online
-            education, e-commerce marketplace) &mdash; now building and shipping AI-powered backend
-            applications. My latest project is a containerized FastAPI chatbot with a full Corrective RAG
-            (CRAG) pipeline &mdash; ChromaDB, HuggingFace embeddings and cross-encoder reranking,
-            multi-provider LLM support (OpenAI and Gemini) with automatic failover, a web-search fallback
-            (Tavily) that kicks in when local knowledge falls short, and LangGraph orchestration with
-            persistent multi-turn memory &mdash; fully migrated and deployed live on Google Cloud Run
-            (original manual version kept live on Render for comparison), with 100% test coverage.
-            I bring production engineering habits (Git, testing, API design) to a new stack.
-          </p>
+<body class="bg-dark text-slate-100 font-sans antialiased leading-relaxed selection:bg-accent selection:text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-dark/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-lg font-bold tracking-tight text-white">Cindy Hsu</a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
+                <a href="#about" class="hover:text-accent transition">About</a>
+                <a href="#skills" class="hover:text-accent transition">Skills</a>
+                <a href="#projects" class="hover:text-accent transition">Projects</a>
+                <a href="#experience" class="hover:text-accent transition">Experience</a>
+                <a href="#contact" class="hover:text-accent transition">Contact</a>
+            </nav>
+            <div class="flex space-x-4 text-slate-400 text-lg">
+                <a href="https://github.com" target="_blank" class="hover:text-white transition"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-white transition"><i class="fab fa-linkedin"></i></a>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div class="badges">
-        <span class="badge">actively-interviewing</span>
-        <span class="badge">open-to-full-time</span>
-        <span class="badge">open-to-contract</span>
-        <span class="badge">available-immediately</span>
-      </div>
-
-      <div class="actions">
-        <a class="btn primary" href="assets/Cindy_Hsu_Resume_GenAI_Engineer.pdf" target="_blank">View Resume</a>
-        <a class="btn" href="https://www.linkedin.com/in/cindy-hsu-80b20928/" target="_blank">LinkedIn</a>
-        <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank">GitHub</a>
-        <a class="btn" href="mailto:cindyhsu@protonmail.com">Email Me</a>
-      </div>
+    <!-- Hero Section -->
+    <section class="max-w-5xl mx-auto px-6 pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-3xl">
+            <span class="text-accent font-semibold text-sm tracking-widest uppercase mb-3 block">GenAI & LLM Application Engineer</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Building robust, production-grade AI systems and autonomous workflows.
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mb-8">
+                Combining 10+ years of software engineering rigor with state-of-the-art retrieval-augmented generation (RAG), LangGraph multi-turn agent orchestration, and high-velocity machine learning pipelines.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#projects" class="bg-accent hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg transition shadow-lg shadow-blue-500/20">View Projects</a>
+                <a href="#contact" class="bg-card hover:bg-slate-700 text-slate-200 font-medium px-6 py-3 rounded-lg border border-slate-700 transition">Get in Touch</a>
+            </div>
+        </div>
     </section>
 
-    <div class="layout">
-      <aside class="stack">
-        <section class="card">
-          <span class="eyebrow">whoami</span>
-          <h2 class="section-title">About Me</h2>
-          <p class="small">
-            I spent years shipping production iOS apps at Silicon Valley tech companies, then took time
-            to study Python, machine learning, and cloud fundamentals. Today I'm applying that engineering
-            discipline &mdash; clean APIs, version control, real debugging &mdash; to building AI-powered
-            applications from the ground up.
-          </p>
-        </section>
-
-        <section class="card">
-          <span class="eyebrow">skills --list</span>
-          <h2 class="section-title">Core Skills</h2>
-          <div class="pill-list">
-            <span class="pill">Python</span>
-            <span class="pill">FastAPI</span>
-            <span class="pill">LangGraph</span>
-            <span class="pill">LangChain</span>
-            <span class="pill">RAG Pipeline Design</span>
-            <span class="pill">ChromaDB</span>
-            <span class="pill">HuggingFace</span>
-            <span class="pill">OpenAI API</span>
-            <span class="pill">Gemini API</span>
-            <span class="pill">Docker</span>
-            <span class="pill">Git &amp; GitHub</span>
-            <span class="pill">Cursor (AI-assisted dev)</span>
-            <span class="pill">Swift</span>
-            <span class="pill">QA Testing</span>
-            <span class="pill">Project Management</span>
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="eyebrow">currently --building</span>
-          <h2 class="section-title">Actively Learning</h2>
-          <div class="pill-list">
-            <span class="pill learning">MCP (Model Context Protocol)</span>
-            <span class="pill learning">SQL</span>
-            <span class="pill learning">AWS</span>
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="eyebrow">contact --info</span>
-          <h2 class="section-title">Contact</h2>
-          <div class="contact-lines small">
-            <p><a href="mailto:cindyhsu@protonmail.com">cindyhsu@protonmail.com</a></p>
-            <p><a href="https://www.linkedin.com/in/cindy-hsu-80b20928/" target="_blank">LinkedIn Profile</a></p>
-          </div>
-        </section>
-      </aside>
-
-      <main class="stack">
-        <section class="card">
-          <span class="eyebrow">projects --featured</span>
-          <h2 class="section-title">Featured Project</h2>
-
-          <!-- NEWEST: LangGraph orchestration version -->
-          <div class="project featured project-card">
-            <img class="project-thumb" src="assets/combined_demo_annotated.png" alt="Screenshot of the LangGraph-orchestrated RAG chatbot demonstrating grounding, memory, and web search fallback">
-            <div class="project-body">
-              <span class="status-line newest">latest &middot; langgraph orchestration &middot; 100% test coverage</span>
-              <h3>AI Chatbot with RAG &mdash; LangGraph Edition</h3>
-              <p>
-                Migrated orchestration from hand-rolled control flow to LangGraph: the pipeline is now a
-                typed <code>StateGraph</code> with conditional routing between context-grounded,
-                trained-knowledge, and web-search generation paths, plus a <code>MemorySaver</code>
-                checkpointer that gives the system persistent multi-turn conversational memory across
-                separate API calls. Fully migrated and deployed live on Google Cloud Run. Kept the
-                original manual-RAG version live on Render as a deliberate before/after architectural
-                comparison.
-              </p>
-              <ul class="debug-stories">
-                <li><strong>Removed a dual history-tracking bug:</strong> found conversation history was
-                being tracked in two competing places at once (a hand-rolled store and the LangGraph
-                checkpointer); consolidated to a single source of truth before it caused duplicate messages.</li>
-                <li><strong>Fixed a cross-provider response mismatch:</strong> Gemini's response returning
-                structured content blocks where OpenAI returns a plain string was silently breaking the UI;
-                wrote a normalization layer so downstream code stays provider-agnostic.</li>
-                <li><strong>Root-caused an intermittent memory failure</strong> to LLM sampling variance at
-                a decision boundary &mdash; not a state bug &mdash; by systematically ruling out checkpointer,
-                thread-id, and prompt-template causes before confirming via repeated trials and fixing it
-                with temperature tuning.</li>
-                <li><strong>Closed the final test-coverage gaps using Cursor's AI coding agent</strong>
-                (in Ask mode &mdash; reviewing every change before applying it, not auto-accepting edits):
-                the agent correctly traced expected test assertions back to real template content instead
-                of guessing, and helped surface a subtle limitation &mdash; <code>coverage.py</code> doesn't
-                track subprocess execution &mdash; which I resolved with a standard <code>.coveragerc</code>
-                exclusion rather than over-engineering the test. Result: 100% line coverage across 763
-                statements, 70 passing tests.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="pill">Python</span>
-                <span class="pill">FastAPI</span>
-                <span class="pill">LangGraph</span>
-                <span class="pill">LangChain</span>
-                <span class="pill">ChromaDB</span>
-                <span class="pill">HuggingFace</span>
-                <span class="pill">OpenAI API</span>
-                <span class="pill">Gemini API</span>
-                <span class="pill">Tavily</span>
-                <span class="pill">Docker</span>
-                <span class="pill">Google Cloud Run</span>
-                <span class="pill">Cursor</span>
-              </div>
-              <div class="project-links">
-                <a class="btn primary" href="https://ai-chatbot-with-rag-1016078012439.us-west1.run.app" target="_blank" rel="noopener noreferrer">Live Demo (Cloud Run - LangGraph)</a>
-                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
-              </div>
+    <!-- About Section -->
+    <section id="about" class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-800/80">
+        <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+            <span class="text-accent mr-2">01.</span> About Me
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8 text-slate-300">
+            <div class="md:col-span-2 space-y-4">
+                <p>
+                    I am an applied GenAI and software engineer based in Orange County, CA. My work bridges foundational software engineering best practices—version control, robust testing, CI/CD, and asynchronous system design—with cutting-edge generative AI architectures.
+                </p>
+                <p>
+                    Recently, I've focused on building end-to-end production RAG pipelines, optimizing cross-encoder rerankers with ONNX Runtime for sub-100ms latency, orchestrating stateful multi-turn agents with LangGraph, and developing Model Context Protocol (MCP) servers for Claude Desktop.
+                </p>
             </div>
-          </div>
-
-          <div class="divider-gap"></div>
-
-          <!-- Manual RAG (CRAG) version — kept for comparison -->
-          <div class="project featured project-card">
-            <img class="project-thumb" src="assets/rag_workflow_annotated.png" alt="Screenshot of the Corrective RAG chatbot deployed on Render">
-            <div class="project-body">
-              <span class="status-line">previous iteration &middot; manual rag</span>
-              <h3>AI Chatbot with Corrective RAG (CRAG) &mdash; Multi-Provider Failover + Web Search Fallback</h3>
-              <p>
-                The original RAG chatbot, built entirely from primitives &mdash; no LangChain &mdash;
-                specifically to understand retrieval, reranking, and failover internals before adopting a
-                framework. Adds a Corrective RAG (CRAG) grading step that evaluates retrieval quality and
-                falls back to live web search (Tavily) when local knowledge is insufficient. Multi-provider
-                LLM support with automatic failover (OpenAI primary, Gemini backup) &mdash; swapping provider
-                priority order cut response latency significantly. Kept live on Render as a before/after
-                comparison against the LangGraph version above.
-              </p>
-              <div class="project-meta">
-                <span class="pill">Python</span>
-                <span class="pill">FastAPI</span>
-                <span class="pill">ChromaDB</span>
-                <span class="pill">HuggingFace</span>
-                <span class="pill">OpenAI API</span>
-                <span class="pill">Gemini API</span>
-                <span class="pill">Tavily</span>
-                <span class="pill">Docker</span>
-                <span class="pill">Render</span>
-                <span class="pill">Git</span>
-              </div>
-              <div class="project-links">
-                <a class="btn primary" href="https://ai-chatbot-fastapi-with-rag.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo (Render - Manual RAG)</a>
-                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi-with-rag" target="_blank" rel="noopener noreferrer">View Code</a>
-              </div>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <h3 class="font-semibold text-white mb-3">Quick Facts</h3>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><i class="fas fa-map-marker-alt text-accent mr-2"></i> Garden Grove / Orange County, CA</li>
+                    <li><i class="fas fa-graduation-cap text-accent mr-2"></i> M.S. Computer Science, USC</li>
+                    <li><i class="fas fa-code text-accent mr-2"></i> 10+ Years Engineering Discipline</li>
+                    <li><i class="fas fa-robot text-accent mr-2"></i> Specialized in GenAI, RAG & Agents</li>
+                </ul>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <div class="divider-gap"></div>
-
-          <div class="project featured project-card">
-            <img class="project-thumb" src="assets/ai-chatbot-fastapi-with-rag-feature-chromadb-migration-render.png" alt="Screenshot of the RAG chatbot answering correctly on Google Cloud Run, proving retrieval works"><div class="project-body">
-              <span class="status-line">live in production</span>
-              <h3>AI Chatbot &mdash; FastAPI + OpenAI + Docker</h3>
-              <p>
-                A containerized chat application built with FastAPI and the OpenAI API,
-                deployed live on Render with a dedicated health-check endpoint. Along the way I
-                debugged real cross-environment issues: a Python version mismatch that broke
-                the Docker build, missing dependencies that only surfaced inside the container,
-                and secure API key handling across local, containerized, and production environments.
-              </p>
-              <div class="project-meta">
-                <span class="pill">Python</span>
-                <span class="pill">FastAPI</span>
-                <span class="pill">OpenAI API</span>
-                <span class="pill">Docker</span>
-                <span class="pill">Render</span>
-                <span class="pill">Git</span>
-              </div>
-              <div class="project-links">
-                <a class="btn primary" href="https://ai-chatbot-fastapi-3b8w.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                <a class="btn" href="https://github.com/cindyhsugit/ai-chatbot-fastapi" target="_blank" rel="noopener noreferrer">View Code</a>
-              </div>
+    <!-- Skills Section -->
+    <section id="skills" class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-800/80">
+        <h2 class="text-2xl font-bold text-white mb-8 flex items-center">
+            <span class="text-accent mr-2">02.</span> Technical Stack
+        </h2>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-brain"></i></div>
+                <h3 class="font-bold text-white mb-2">GenAI & LLM Stacks</h3>
+                <p class="text-sm text-slate-400">LangGraph, LangChain, OpenAI & Gemini APIs, Prompt Engineering, MCP Server Development, Claude Desktop.</p>
             </div>
-          </div>
-
-          <div class="divider-gap"></div>
-
-          <div class="project project-card">
-            <img class="project-thumb" src="assets/quizGame.png" alt="Screenshot of the Quiz Game project">
-            <div class="project-body">
-              <h3>Quiz Game</h3>
-              <p>An interactive quiz game built with Python, using tkinter for the UI and CSV-driven question data.</p>
-              <div class="project-links">
-                <a class="btn" href="https://github.com/cindyhsugit/VSCode-Playground/tree/branch1.0" target="_blank" rel="noopener noreferrer">View Code</a>
-              </div>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-database"></i></div>
+                <h3 class="font-bold text-white mb-2">RAG & Retrieval</h3>
+                <p class="text-sm text-slate-400">ChromaDB, FAISS, Hugging Face Transformers, Cross-Encoder Reranking, ONNX Runtime Optimization.</p>
             </div>
-          </div>
-        </section>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-server"></i></div>
+                <h3 class="font-bold text-white mb-2">Backend & Engineering</h3>
+                <p class="text-sm text-slate-400">Python, FastAPI, Async/Await, pytest (100% test coverage standards), Docker, Google Cloud Run, Render.</p>
+            </div>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-chart-line"></i></div>
+                <h3 class="font-bold text-white mb-2">Data Science & ML</h3>
+                <p class="text-sm text-slate-400">pandas, scikit-learn (Logistic Regression, Pipelines), Matplotlib, Seaborn, Exploratory Data Analysis.</p>
+            </div>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-binoculars"></i></div>
+                <h3 class="font-bold text-white mb-2">Observability & QA</h3>
+                <p class="text-sm text-slate-400">LangSmith (Tracing & Evaluation), MCP Inspector, Unit & Integration Testing, Debugging.</p>
+            </div>
+            <div class="bg-card p-6 rounded-xl border border-slate-800">
+                <div class="text-accent text-2xl mb-3"><i class="fas fa-tools"></i></div>
+                <h3 class="font-bold text-white mb-2">Tooling & Workflow</h3>
+                <p class="text-sm text-slate-400">Git & GitHub, uv (Dependency Management), Cursor, AI-assisted development workflows.</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="card">
-          <span class="eyebrow">history --work</span>
-          <h2 class="section-title">Work History</h2>
-          <div class="entry">
-            <div class="entry-title">StubHub &mdash; Senior iOS Developer</div>
-            <div class="entry-sub">Production API integration and mobile architecture &mdash; directly applicable to backend service design today.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">Udemy &mdash; Senior iOS Developer</div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">Mercari &mdash; Senior iOS Developer</div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">AppSense &mdash; iOS Developer</div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">Phunware &mdash; iOS Developer</div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">CurrenEx &mdash; QA Engineer</div>
-          </div>
-        </section>
+    <!-- Projects Section -->
+    <section id="projects" class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-800/80">
+        <h2 class="text-2xl font-bold text-white mb-8 flex items-center">
+            <span class="text-accent mr-2">03.</span> Featured Projects
+        </h2>
+        
+        <div class="space-y-12">
+            <!-- Project 1 -->
+            <div class="bg-card p-8 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">AI Chatbot with RAG - LangGraph Edition</h3>
+                    <span class="text-xs font-semibold text-accent bg-accent/10 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">Production Deployed</span>
+                </div>
+                <p class="text-slate-300 mb-6">
+                    Full-featured RAG pipeline and stateful multi-turn conversational agent deployed live on Google Cloud Run. Features a two-stage retrieval architecture (ChromaDB + HuggingFace cross-encoder reranking), ONNX Runtime optimization for 3-4x latency reduction, provider-agnostic LLM failover (OpenAI/Gemini), and Tavily web search fallback (Corrective RAG).
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Python</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">LangGraph</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">ChromaDB</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">ONNX Runtime</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Google Cloud Run</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">LangSmith</span>
+                </div>
+            </div>
 
-        <section class="card">
-          <span class="eyebrow">education --history</span>
-          <h2 class="section-title">Education</h2>
-          <div class="entry">
-            <div class="entry-title">University of Southern California</div>
-            <div class="entry-sub">Master of Science, Computer Science &middot; 2005 &ndash; 2007 <img class="logo" src="images/usc-logo.png" alt="USC logo"></div>
-          </div>
-          <div class="entry">
-            <div class="entry-title">Iowa State University</div>
-            <div class="entry-sub">Bachelor of Science, Computer Science &middot; 2001 &ndash; 2005 <img class="logo" src="images/isu-logo.png" alt="Iowa State logo"></div>
-          </div>
-        </section>
-      </main>
-    </div>
-  </div>
+            <!-- Project 2 -->
+            <div class="bg-card p-8 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">Disneyland Wait-Time Analysis & Prediction</h3>
+                    <span class="text-xs font-semibold text-accent bg-accent/10 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">Machine Learning</span>
+                </div>
+                <p class="text-slate-300 mb-6">
+                    Cleaned and analyzed 653K operational ride wait-time records across 11 months merged with hourly weather data. Built a scikit-learn logistic regression classification pipeline to predict 60+ minute wait bottlenecks, achieving 93.5% accuracy with robust pipeline validation.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Python</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">scikit-learn</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">pandas</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Matplotlib & Seaborn</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="bg-card p-8 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">mcp-server-simpsons-cities</h3>
+                    <span class="text-xs font-semibold text-accent bg-accent/10 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">Model Context Protocol</span>
+                </div>
+                <p class="text-slate-300 mb-6">
+                    Built a Model Context Protocol (MCP) server integrated with Claude Desktop exposing live geospatial tools. Connected authenticated GeoNames APIs and paginated MediaWiki category data, handling protocol SDK updates and local tool routing.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Python</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">FastMCP</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">Claude Desktop</span>
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded">GeoNames API</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Summary -->
+    <section id="experience" class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-800/80">
+        <h2 class="text-2xl font-bold text-white mb-8 flex items-center">
+            <span class="text-accent mr-2">04.</span> Professional Background
+        </h2>
+        <div class="space-y-6 text-slate-300">
+            <div class="border-l-2 border-accent pl-4 space-y-1">
+                <h3 class="font-bold text-white">Senior iOS & Software Engineer</h3>
+                <p class="text-sm text-slate-400">StubHub, Udemy, Mercari, AppSense, Phunware (2012–2019)</p>
+                <p class="text-sm text-slate-300 pt-2">
+                    Engineered consumer-facing iOS apps, shared libraries, and core architectural features serving millions of users. Managed build and release pipelines, localization workflows, and cross-functional engineering collaboration.
+                </p>
+            </div>
+            <div class="border-l-2 border-slate-700 pl-4 space-y-1">
+                <h3 class="font-bold text-white">QA Engineer</h3>
+                <p class="text-sm text-slate-400">Currenex, a State Street company (2008–2012)</p>
+                <p class="text-sm text-slate-300 pt-2">
+                    Executed rigorous manual functional, regression, and integration testing for high-throughput financial trading platforms, establishing foundational defect tracking and quality assurance discipline.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-5xl mx-auto px-6 py-16 border-t border-slate-800/80 mb-16">
+        <div class="max-w-xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Let's Connect</h2>
+            <p class="text-slate-400 mb-8">
+                I am actively exploring GenAI and Machine Learning Engineering opportunities. Whether you want to discuss AI architecture, RAG optimization, or a potential role, feel free to reach out!
+            </p>
+            <a href="mailto:twncindy@yahoo.com" class="inline-block bg-accent hover:bg-blue-600 text-white font-medium px-8 py-4 rounded-xl transition shadow-lg shadow-blue-500/20">
+                <i class="fas fa-envelope mr-2"></i> twncindy@yahoo.com
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-900 text-center text-sm text-slate-500">
+        <p>&copy; 2026 Cindy Hsu. Built with Tailwind CSS.</p>
+    </footer>
+
 </body>
 </html>
